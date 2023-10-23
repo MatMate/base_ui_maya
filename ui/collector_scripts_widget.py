@@ -1,6 +1,6 @@
 #### PySide2
 from PySide2.QtCore import Qt 
-from PySide2.QtWidgets import (QWidget, QVBoxLayout, QLabel, QTabWidget)
+from PySide2.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel, QTabWidget, QPushButton, QLineEdit)
 
 import logging
 LEVEL = logging.DEBUG
@@ -59,6 +59,7 @@ class CollectorScripsWidget(QWidget): #Python2 QtGui.QDialog
         self.main_vert_lyt.addWidget(self.tab)
         #
         ############
+        self.main_vert_lyt.addLayout(self.test_lyt())
 
         #name author
         self.main_vert_lyt.addWidget(self.line_frame())
@@ -77,6 +78,25 @@ class CollectorScripsWidget(QWidget): #Python2 QtGui.QDialog
     ################
     #   Init Widgets
     ################
+
+    def test_lyt(self):
+        """
+            preview widgets
+        """
+        test_h_lyt = QHBoxLayout()
+
+        self.test_li_ed = QLineEdit()
+        self.test_li_ed.setPlaceholderText("Type something...")
+        test_h_lyt.addWidget(self.test_li_ed)
+        test_h_lyt.addSpacing(10)
+
+        test_h_lyt.addStretch()
+        self.test_btn = QPushButton("Press to print!")
+        self.setToolTip("Press to print text from the left!")
+        test_h_lyt.addWidget(self.test_btn)
+
+
+        return test_h_lyt
     
     
     def line_frame(self):        
@@ -84,7 +104,10 @@ class CollectorScripsWidget(QWidget): #Python2 QtGui.QDialog
         return sep
 
     def make_connection(self):
-        pass
+        
+
+        self.test_li_ed.textChanged.connect(self.test_li_ed_com)
+        self.test_btn.pressed.connect(self.test_btn_com)
     
     #######
     #Methods UI
@@ -101,3 +124,19 @@ class CollectorScripsWidget(QWidget): #Python2 QtGui.QDialog
     def set_script_jobs(self, ls = []):
         #self.rot_wid.set_script_jobs(ls)
         pass
+
+    ################
+    #
+    ###########
+
+    def test_li_ed_com(self, text = ""):
+        """
+        """
+        print(f"Text changed to: {text}")
+
+    def test_btn_com(self):
+        """
+        
+        """
+
+        print(f"TEXT TO PRINT: \n{self.test_li_ed.text()}")

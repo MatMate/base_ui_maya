@@ -84,6 +84,6 @@ class CollectorScripsUI(QDialog): #Python2 QtGui.QDialog
     def closeEvent(self, e):
         if isinstance(self, CollectorScripsUI):
             super(CollectorScripsUI, self).closeEvent(e)
-            self.delete_script_jobs()
+            #self.delete_script_jobs()
             self.geometry = self.saveGeometry()
 
